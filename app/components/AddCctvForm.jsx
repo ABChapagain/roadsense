@@ -10,7 +10,7 @@ const AddCctvForm = () => {
     latitude: '',
     longitude: '',
     city: '',
-    isOnline: false,
+    status: false,
   })
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
@@ -46,7 +46,7 @@ const AddCctvForm = () => {
       latitude: '',
       longitude: '',
       city: '',
-      isOnline: false,
+      status: false,
     })
   }
 
@@ -93,11 +93,11 @@ const AddCctvForm = () => {
             type='checkbox'
             value=''
             className='sr-only peer'
-            checked={formData.isOnline}
+            checked={formData.status}
             onChange={() => {
               setFormData({
                 ...formData,
-                isOnline: !formData.isOnline,
+                status: !formData.status,
               })
             }}
           />

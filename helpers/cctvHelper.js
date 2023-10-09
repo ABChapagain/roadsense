@@ -11,8 +11,7 @@ async function getAllCctv() {
 
 // create new cctv data
 async function createCctv({ ipAddress, latitude, longitude, status, city }) {
-  const response = await fetch(`${process.env.APP_URL}/api/cctvs`, {
-    cache: 'no-cache',
+  const response = await fetch(`/api/cctvs`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
