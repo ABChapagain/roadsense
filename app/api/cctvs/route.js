@@ -1,18 +1,18 @@
-import connectDB from "@/utils/connectDB";
-import Cctvs from "@/models/CctvModel";
-import { NextResponse } from "next/server";
+import connectDB from '@/utils/connectDB'
+import Cctvs from '@/models/CctvModel'
+import { NextResponse } from 'next/server'
 
 //  @route  GET api/cctvs
 //  @desc   Get all cctvs
 //  @access Public
 export async function GET() {
-   try {
-      await connectDB();
-      const response = await Cctvs.find({});
-      return NextResponse.json(response, { status: 200 });
-   } catch (e) {
-      console.log(e);
-   }
+  try {
+    await connectDB()
+    const response = await Cctvs.find({})
+    return NextResponse.json(response, { status: 200 })
+  } catch (e) {
+    console.log(e)
+  }
 }
 
 //  @route  POST api/cctvs

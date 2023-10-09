@@ -1,4 +1,4 @@
-import { Schema, model, models } from "mongoose";
+import { Schema, model, models } from 'mongoose'
 
 const AccidentSchema = new Schema(
    {
@@ -14,16 +14,16 @@ const AccidentSchema = new Schema(
          required: true,
       },
 
-      cctv: {
-         type: Schema.Types.ObjectId,
-         ref: "cctvs",
-      },
-   },
+    cctv: {
+      type: Schema.Types.ObjectId,
+      ref: 'cctvs',
+    },
+  },
 
-   {
-      timestamps: true,
-   }
-);
+  {
+    timestamps: true,
+  }
+)
 
-const Accident = models.Accident || model("Accident", AccidentSchema);
-export default Accident;
+const Accident = models.Accident || model('Accident', AccidentSchema)
+export default Accident

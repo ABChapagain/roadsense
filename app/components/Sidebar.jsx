@@ -7,9 +7,10 @@ import { MdBusAlert } from 'react-icons/md'
 import { usePathname } from 'next/navigation'
 
 const Sidebar = () => {
+  // pathname to set active in navbar
   const pathname = usePathname()
-  console.log(pathname)
 
+  // sidebar links
   const sidebarLinks = [
     {
       id: 0,
