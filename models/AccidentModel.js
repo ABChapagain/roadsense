@@ -2,17 +2,6 @@ import { Schema, model, models } from "mongoose";
 
 const AccidentSchema = new Schema(
    {
-      accidentDate: {
-         type: Date,
-         required: true,
-         default: Date.now(),
-      },
-
-      accidentLocation: {
-         type: String,
-         required: true,
-      },
-
       accidentClassification: {
          type: String,
          required: true,

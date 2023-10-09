@@ -24,7 +24,7 @@ export async function POST(request) {
       const req = await request.json();
       console.log(req);
       const data = await Cctvs.create(req);
-      return NextResponse.json({ success: true }, { status: 201 });
+      return NextResponse.json(data, { status: 201 });
    } catch (e) {
       console.log(e.message);
    }
