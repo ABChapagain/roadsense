@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "bufferutil": "^4.0.7",
     "dayjs": "^1.11.10",
     "mongoose": "^7.6.0",
     "next": "13.5.4",
@@ -16,7 +17,9 @@
     "react-dom": "^18",
     "react-icons": "^4.11.0",
     "socket.io": "^4.7.2",
-    "socket.io-client": "^4.7.2"
+    "socket.io-client": "^4.7.2",
+    "supports-color": "^9.4.0",
+    "utf-8-validate": "^5.0.10"
   },
   "devDependencies": {
     "autoprefixer": "^10",
