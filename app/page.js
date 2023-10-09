@@ -1,6 +1,7 @@
 import { getAllCctv } from '@/helpers/cctvHelper'
 import Image from 'next/image'
 import AddCctvForm from './components/AddCctvForm'
+import CctvLists from './components/CctvLists'
 
 export default async function Home() {
   const cctvLists = await getAllCctv()
@@ -46,6 +47,7 @@ export default async function Home() {
         <AddCctvForm />
 
         {/* Cctv Lists */}
+        <CctvLists cctvLists={cctvLists} />
       </div>
       <div>{/* Integrate map here */}</div>
     </section>
