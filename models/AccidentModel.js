@@ -6,6 +6,7 @@ const AccidentSchema = new Schema(
          type: String,
          required: true,
          enum: ["Fatal", "Serious", "Normal"],
+         default: "",
       },
 
       photos: {
