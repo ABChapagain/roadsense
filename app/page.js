@@ -2,9 +2,14 @@ import { getAllCctv } from '@/helpers/cctvHelper'
 import Image from 'next/image'
 import AddCctvForm from './components/AddCctvForm'
 import CctvLists from './components/CctvLists'
+import HomepageMap from './components/GoogleMapComponent'
+import GoogleMapComponent from './components/GoogleMapComponent'
+import { getAllAccidents } from '@/helpers/accidentHelper'
+import { Suspense } from 'react'
 
 export default async function Home() {
   const cctvLists = await getAllCctv()
+  const accidents = await getAllAccidents()
   const analyticsData = [
     {
       id: 1,
@@ -25,6 +30,32 @@ export default async function Home() {
       color: 'text-red-500',
     },
   ]
+
+
+  const markers = accidents?.map(({ city, cctv }) => ({
+    city: cctv.city,
+    lat: cctv.location.latitude,
+    lng: cctv.location.longitude,
+    position: {
+      lat: cctv.location.latitude,
+      lng: cctv.location.longitude,
+    },
+  }))
+
+  const center = () => {
+    const totalCount = accidents.length
+    let latSum = 0
+    let lngSum = 0
+
+    accidents.forEach((item) => {
+      latSum += item.cctv.location.latitude
+      lngSum += item.cctv.location.longitude
+    })
+    const lat = latSum / totalCount
+    const lng = lngSum / totalCount
+
+    return { lat, lng }
+  }
 
   return (
     <section className='flex'>
@@ -47,7 +78,23 @@ export default async function Home() {
         <AddCctvForm />
 
         {/* Cctv Lists */}
-        <CctvLists cctvLists={cctvLists} />
+        <div className='flex gap-3 sm:flex-col w-full'>
+          <CctvLists cctvLists={cctvLists} />
+
+          <Suspense fallback={<div>Loading...</div>}>
+            <GoogleMapComponent
+              markers={markers}
+              center={center()}
+              zoom={10}
+              height='400px'
+              width='100%'
+            />
+
+          </Suspense>
+
+
+
+        </div>
       </div>
       <div>{/* Integrate map here */}</div>
     </section>
