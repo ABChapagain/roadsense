@@ -1,39 +1,34 @@
-import { Schema, model, models } from "mongoose";
+import { Schema, model, models } from 'mongoose'
 
 const AccidentSchema = new Schema(
-   {
-      accidentDate: {
-         type: Date,
-         required: true,
-         default: Date.now(),
-      },
+  {
+    accidentDate: {
+      type: Date,
+      required: true,
+      default: Date.now(),
+    },
 
-      accidentLocation: {
-         type: String,
-         required: true,
-      },
+    accidentClassification: {
+      type: String,
+      required: true,
+      enum: ['Fatal', 'Serious', 'Normal'],
+    },
 
-      accidentClassification: {
-         type: String,
-         required: true,
-         enum: ["Fatal", "Serious", "Normal"],
-      },
+    photos: {
+      type: String,
+      required: true,
+    },
 
-      photos: {
-         type: String,
-         required: true,
-      },
+    cctv: {
+      type: Schema.Types.ObjectId,
+      ref: 'cctvs',
+    },
+  },
 
-      cctv: {
-         type: Schema.Types.ObjectId,
-         ref: "cctvs",
-      },
-   },
+  {
+    timestamps: true,
+  }
+)
 
-   {
-      timestamps: true,
-   }
-);
-
-const Accident = models.Accident || model("Accident", AccidentSchema);
-export default Accident;
+const Accident = models.Accident || model('Accident', AccidentSchema)
+export default Accident
