@@ -7,6 +7,7 @@ import Link from 'next/link'
 const GoogleMapComponent = ({ height, width, markers, zoom, center }) => {
     const [activeMarker, setActiveMarker] = useState(null)
     const [isInfoWindowOpen, setInfoWindowOpen] = useState(false)
+    const [ready, setReady] = useState(false)
 
     console.log(markers)
 
@@ -20,6 +21,13 @@ const GoogleMapComponent = ({ height, width, markers, zoom, center }) => {
         setInfoWindowOpen(false)
     }
 
+    useEffect(() => {
+        setReady(true)
+
+    }, [markers])
+
+    if (!ready) return null
+
     return (
         <GoogleMap
             mapContainerStyle={{ height, width }}
@@ -31,25 +39,29 @@ const GoogleMapComponent = ({ height, width, markers, zoom, center }) => {
                     key={`${marker.title}-${index}`}
                     title={marker.title}
                     position={marker.position}
+                    icon={{
+                        url: marker.type === 'cctv' ? 'https://th.bing.com/th/id/R.77059caaecd260d193d21409d5148602?rik=CwRT2u759MWh5g&pid=ImgRaw&r=0' : 'https://th.bing.com/th/id/R.05b330f579076a516e78418dffbbabc8?rik=%2b3Ik4uesHwzlyA&riu=http%3a%2f%2fclipart-library.com%2fimg%2f1942058.png&ehk=ZMwMjU45LQROwjqakvETqUqSVq65A0gNGYwNrPJ%2fCIk%3d&risl=&pid=ImgRaw&r=0',
+                        scaledSize: new window.google.maps.Size(20, 20),
+                    }}
                     onClick={() => handleMarkerClick(marker)}
                 >
                     {isInfoWindowOpen && isEqual(marker, activeMarker) ? (
                         <InfoWindow onCloseClick={handleInfoWindowClose}>
                             <div className='flex flex-col font-bold gap-1 w-48'>
                                 <Link
-                                    href={`/alerts/${activeMarker?.id}`}
+                                    href={`/city/${activeMarker?.city}`}
                                     className='btn-link text-[11px]'
                                 >
-                                    {activeMarker?.hazard}
+                                    {activeMarker?.city}
                                 </Link>
-                                <h3 className='text-[14px]'>{activeMarker?.title}</h3>
-                                {activeMarker?.address.split(',').map((add) => (
-                                    <p className='text-[11px]' key={add}>
-                                        {add}
-                                    </p>
-                                ))}
+                                <h3 className='text-[14px]'>{activeMarker?.city}</h3>
+
+                                <p className='text-[11px]' key={marker.city}>
+                                    {(!!marker?.ip) && marker.ip}
+                                </p>
+
                                 <Link
-                                    href={marker.link}
+                                    href={`https://www.google.com/maps/search/?api=1&query=${marker.position.lat},${marker.position.lng}`}
                                     target='_blank'
                                     className='text-[11px] text-blue-600 hover:btn-link'
                                 >
@@ -59,8 +71,9 @@ const GoogleMapComponent = ({ height, width, markers, zoom, center }) => {
                         </InfoWindow>
                     ) : null}
                 </Marker>
-            ))}
-        </GoogleMap>
+            ))
+            }
+        </GoogleMap >
     )
 }
 

@@ -54,7 +54,6 @@ const AccidentDetailsPage = ({ params: { id } }) => {
     try {
       const res = await fetch('/api/accidents/' + id)
       const data = await res.json()
-      console.log(data)
       setData(data)
       setTime(dayjs(data.time).format('YYYY-MM-DD hh:mm A'))
       setMarkers({
@@ -65,6 +64,8 @@ const AccidentDetailsPage = ({ params: { id } }) => {
           lat: data.cctv.location.latitude,
           lng: data.cctv.location.longitude,
         },
+        ip: data.cctv.ipAddress,
+        type: 'accident',
       })
 
     } catch (error) {

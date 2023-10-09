@@ -10,6 +10,7 @@ import { Suspense } from 'react'
 export default async function Home() {
   const cctvLists = await getAllCctv()
   const accidents = await getAllAccidents()
+
   const analyticsData = [
     {
       id: 1,
@@ -40,6 +41,8 @@ export default async function Home() {
       lat: cctv.location.latitude,
       lng: cctv.location.longitude,
     },
+    ip: cctv.ipAddress,
+    type: 'cctv'
   }))
 
   const center = () => {
@@ -56,6 +59,7 @@ export default async function Home() {
 
     return { lat, lng }
   }
+
 
   return (
     <section className='flex'>
