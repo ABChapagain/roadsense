@@ -10,7 +10,7 @@ async function getAllCctv() {
 }
 
 // create new cctv data
-async function createCctv({ ipAddr, latitude, longitude, status, city }) {
+async function createCctv({ ipAddress, latitude, longitude, status, city }) {
   const response = await fetch(`${process.env.APP_URL}/api/cctvs`, {
     cache: 'no-cache',
     method: 'POST',
@@ -18,7 +18,7 @@ async function createCctv({ ipAddr, latitude, longitude, status, city }) {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      ipAddr,
+      ipAddress,
       location: {
         latitude,
         longitude,

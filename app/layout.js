@@ -15,9 +15,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang='en'>
-      <body className={`${poppins.className} flex `}>
+      <body className={`${poppins.className} flex h-screen`}>
         <Sidebar />
-        <main className='p-2 flex-grow'>{children}</main>
+        <main className='p-5 flex-grow'>{children}</main>
       </body>
     </html>
   )

@@ -10,7 +10,7 @@ import { io } from "socket.io-client";
 export async function GET() {
    try {
       await connectDB();
-      const response = await Accidents.find({}).populae("cctv");
+      const response = await Accidents.find({}).populate("cctv");
       return NextResponse.json(response, { status: 200 });
    } catch (e) {
       console.log(e);

@@ -18,6 +18,9 @@ const AccidentPage = async () => {
                 S.N
               </th>
               <th scope='col' className='px-6 py-3'>
+                Image
+              </th>
+              <th scope='col' className='px-6 py-3'>
                 Date
               </th>
               <th scope='col' className='px-6 py-3'>
@@ -28,9 +31,6 @@ const AccidentPage = async () => {
               </th>
               <th scope='col' className='px-6 py-3'>
                 Severity
-              </th>
-              <th scope='col' className='px-6 py-3'>
-                Image
               </th>
               <th scope='col' className='px-6 py-3'>
                 Action
