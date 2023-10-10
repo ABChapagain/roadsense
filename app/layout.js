@@ -1,3 +1,4 @@
+import Script from 'next/script'
 import Sidebar from './components/Sidebar'
 import './globals.css'
 import { Poppins } from 'next/font/google'
@@ -15,9 +16,13 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang='en'>
-      <body className={`${poppins.className} flex `}>
+      <Script
+        src={`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_API_KEY}&libraries=geometry`}
+      />{' '}
+
+      <body className={`${poppins.className} flex min-h-screen`}>
         <Sidebar />
-        <main className='p-2'>{children}</main>
+        <main className='p-5 flex-grow'>{children}</main>
       </body>
     </html>
   )

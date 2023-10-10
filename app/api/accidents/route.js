@@ -1,6 +1,8 @@
 import connectDB from "@/utils/connectDB";
 import Accidents from "@/models/AccidentModel";
+import "@/models/CctvModel";
 import { NextResponse } from "next/server";
+import { io } from "socket.io-client";
 
 //  @route  GET api/accidents
 //  @desc   Get all accidents
@@ -8,7 +10,7 @@ import { NextResponse } from "next/server";
 export async function GET() {
    try {
       await connectDB();
-      const response = await Accidents.find({});
+      const response = await Accidents.find({}).populate("cctv");
       return NextResponse.json(response, { status: 200 });
    } catch (e) {
       console.log(e);
@@ -23,7 +25,12 @@ export async function POST(request) {
       await connectDB();
       const req = await request.json();
       const data = await Accidents.create(req);
-      return NextResponse.json({ success: true }, { status: 201 });
+
+      //initializing socket.io
+      const socket = io("http://localhost:4000");
+      socket.emit("send-message", data);
+
+      return NextResponse.json(data, { status: 201 });
    } catch (e) {
       console.log(e.message);
    }
