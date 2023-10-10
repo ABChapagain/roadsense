@@ -17,3 +17,22 @@ export async function GET(request, { params }) {
     console.log(e)
   }
 }
+
+// @route  PUT api/accidents/:id
+// @desc   Update accident
+// @access Public
+export async function PUT(request, { params }) {
+  try {
+    await connectDB()
+
+    const { id } = params
+    const req = await request.json()
+
+    // Find the accident object by ID and update it
+    const updatedAccident = await Accidents.findByIdAndUpdate(id, req, { new: true })
+
+    return NextResponse.json(updatedAccident, { status: 200 })
+  } catch (e) {
+    console.log(e)
+  }
+}
