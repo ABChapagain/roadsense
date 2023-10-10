@@ -1,0 +1,11 @@
+Flask==2.0.1
+opencv-python==4.5.3.56
+ultralytics==0.10.3
+cvzone==1.5.6
+numpy==1.25.2
+opencv-python==4.8.0.76
+pandas==2.0.3
+sympy==1.12
+torch==2.0.1+cu117
+torchvision==0.15.2+cu117
+ultralytics==8.0.156
