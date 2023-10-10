@@ -1,8 +1,7 @@
-const io = require("socket.io")(4000, { cors: { origin: "*" } });
+const io = require('socket.io')(4000, { cors: { origin: '*' } })
 
-io.on("connection", (socket) => {
-   socket.on("send-message", (message) => {
-      console.log(message);
-      socket.broadcast.emit("receive-message", message);
-   });
-});
+io.on('connection', (socket) => {
+  socket.on('send-message', (message) => {
+    socket.broadcast.emit('receive-message', message)
+  })
+})

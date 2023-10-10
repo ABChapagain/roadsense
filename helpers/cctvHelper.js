@@ -31,4 +31,36 @@ async function createCctv({ ipAddress, latitude, longitude, status, city }) {
   return data
 }
 
-export { getAllCctv, createCctv }
+// edit cctv data
+async function editCctv({ id, ipAddress, latitude, longitude, status, city }) {
+  const response = await fetch(`/api/cctvs/${id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      ipAddress,
+      location: {
+        latitude,
+        longitude,
+      },
+      status,
+      city,
+    }),
+  })
+
+  const data = await response.json()
+  return data
+}
+
+// delete cctv data
+async function deleteCctv(id) {
+  const response = await fetch(`/api/cctvs/${id}`, {
+    method: 'DELETE',
+  })
+
+  const data = await response.json()
+  return data
+}
+
+export { getAllCctv, createCctv, editCctv, deleteCctv }
