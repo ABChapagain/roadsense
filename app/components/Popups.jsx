@@ -13,7 +13,7 @@ function Popups() {
   const router = useRouter()
 
   const [show, setShow] = useState(false)
-  const [play, { stop }] = useSound(warning)
+  const [play, { stop, pause }] = useSound(warning)
   const [accident, setAccident] = useState({})
 
   useEffect(() => {
@@ -82,7 +82,7 @@ function Popups() {
             <button
               onClick={() => {
                 setShow(false)
-                stop()
+                pause()
                 router.refresh()
               }}
               className='mb-2 md:mb-0 bg-red-500 border border-red-500 px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-full hover:shadow-lg hover:bg-red-600'
@@ -92,7 +92,7 @@ function Popups() {
             <button
               onClick={() => {
                 setShow(false)
-                stop()
+                pause()
                 router.push(`/accidents/${accident._id}`)
                 router.refresh()
               }}
