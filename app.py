@@ -18,7 +18,7 @@ os.makedirs(snapshot_dir, exist_ok=True)
 frame_count = 0  # Initialize frame_count outside of any function
 
 
-model = YOLO("acc_test.pt")
+model = YOLO("acc_best.pt")
 
 frame_skip = 5
 
