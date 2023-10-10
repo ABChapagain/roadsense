@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { io } from "socket.io-client";
 
 function Page() {
-   const socket = io("http://localhost:4000");
+   const socket = io(process.env.SOCKET_URL);
 
    useEffect(() => {
       socket.on("connect", () => {
