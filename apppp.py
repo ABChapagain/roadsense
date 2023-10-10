@@ -23,6 +23,8 @@ model = YOLO("acc_best.pt")
 
 frame_skip = 5
 
+classnames = ["moderate-accident", "fatal-accident", "Normal"]
+
 def annotate_frame(frame, custom_text):
     # time and date
     now = datetime.now()
@@ -36,7 +38,29 @@ def annotate_frame(frame, custom_text):
     cv2.putText(frame, custom_text, (10, 60), font, 1, (0, 255, 0), 2, cv2.LINE_AA)
 
    
-    results = model(frame)
+    results = model.predict(frame)
+    for r in results:
+        for c in r.boxes.cls:
+            class_name = model.names[int(c)]
+            
+            count = 1
+            if "moderate-accident" in class_name:
+                print(class_name) 
+                snapshot_filename = os.path.join(snapshot_dir, f"snapshot.jpg")
+                cv2.imwrite(snapshot_filename, frame)
+                                
+                
+                print(snapshot_dir)
+          
+                
+                
+                
+                
+            else:
+                print("Hello World")
+        
+        
+    
     annotated_frame = results[0].plot()
 
     return annotated_frame
@@ -45,6 +69,7 @@ def generate_frames(video_path, custom_text):
     global frame_count
     cap = cv2.VideoCapture(video_path)
     frame_count = 0
+    snapshot_taken = False
 
     while True:
         success, frame = cap.read()
@@ -57,10 +82,38 @@ def generate_frames(video_path, custom_text):
         if frame_count % frame_skip == 0:
             annotated_frame = annotate_frame(frame, custom_text)
             
-        
+            # if ["moderate-accident", "fatal-accident"] in classnames:
+            #   snapshot_filename = os.path.join(snapshot_dir, f"snapshot.jpg")
+            #   cv2.imwrite(snapshot_filename, frame)
+            #   snapshot_taken =True
+            # else :
+            #     snapshot_taken =False
+            
+            # while ["moderate-accident", "fatal-accident"] in classnames:
+            #     frame_count = 0
+            #     if ["moderate-accident", "fatal-accident"]:
+            #         snapshot_filename = os.path.join(snapshot_dir, f"snapshot.jpg")
+            #         cv2.imwrite(snapshot_filename, frame)
+            #         snapshot_taken = True
+                
+            #     if not ["moderate-accident", "fatal-accident"]:
+            #         break
+                
+                
+                
+            
+
+            # if "moderate-accident" in custom_text or "fatal-accident" in custom_text:
+            #     if not snapshot_taken:
+            #         snapshot_filename = os.path.join(snapshot_dir, f"snapshot_{custom_text}.jpg")
+            #         cv2.imwrite(snapshot_filename, frame)
+            #         snapshot_taken = True
+            # else:
+            #     # Reset snapshot_taken
+            #     snapshot_taken = False
+
             # snapshot_filename = os.path.join(snapshot_dir, f"snapshot_{frame_count}.jpg")
             # cv2.imwrite(snapshot_filename, frame)
-
 
             frame_count += 1
 
