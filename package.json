@@ -6,19 +6,29 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "socket": "nodemon ./helpers/socket/socket.js"
   },
   "dependencies": {
+    "@react-google-maps/api": "^2.19.2",
+    "bufferutil": "^4.0.7",
+    "dayjs": "^1.11.10",
+    "lodash": "^4.17.21",
     "mongoose": "^7.6.0",
     "next": "13.5.4",
+    "nodemon": "^3.0.1",
     "react": "^18",
     "react-dom": "^18",
     "react-icons": "^4.11.0",
     "socket.io": "^4.7.2",
-    "socket.io-client": "^4.7.2"
+    "socket.io-client": "^4.7.2",
+    "supports-color": "^9.4.0",
+    "use-sound": "^4.0.1",
+    "utf-8-validate": "^5.0.10"
   },
   "devDependencies": {
     "autoprefixer": "^10",
+    "file-loader": "^6.2.0",
     "postcss": "^8",
     "tailwindcss": "^3"
   }
