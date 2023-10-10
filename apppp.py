@@ -7,6 +7,9 @@ from ultralytics import YOLO
 import os
 import time
 
+import json
+import requests
+
 
 app = Flask(__name__)
 
@@ -25,6 +28,29 @@ frame_skip = 5
 
 classnames = ["moderate-accident", "fatal-accident", "Normal"]
 
+def send_accident_data_to_server(accident_data, headers=None):
+
+    # Define the API endpoint
+    api_endpoint = "http://localhost:3000/api/accidents"
+   
+    # Convert the data to JSON
+    json_payload = json.dumps(accident_data)
+
+    # Send the POST request to the server with the JSON payload
+    headers = {'Content-Type': 'application/json'}
+
+    response = requests.post(api_endpoint, data=json_payload, headers=headers)
+
+    # Check the server's response
+    if response.status_code == 201:
+        print("Data sent successfully!")
+        return True
+    else:
+        print("Data upload failed.")
+        return False
+
+
+
 def annotate_frame(frame, custom_text):
     # time and date
     now = datetime.now()
@@ -39,28 +65,36 @@ def annotate_frame(frame, custom_text):
 
    
     results = model.predict(frame)
+    snapshot_taken = False
+    exit_loop = False
     for r in results:
         for c in r.boxes.cls:
             class_name = model.names[int(c)]
-            
-            count = 1
-            if "moderate-accident" in class_name:
-                print(class_name) 
+
+            if ("moderate-accident" in class_name or "fatal-accident" in class_name) and not snapshot_taken:
                 snapshot_filename = os.path.join(snapshot_dir, f"snapshot.jpg")
                 cv2.imwrite(snapshot_filename, frame)
-                                
-                
-                print(snapshot_dir)
-          
-                
-                
-                
-                
-            else:
-                print("Hello World")
+                snapshot_taken = True
+
+                # accident_data = {
+                #     "photos": "snapshots/snapshot_91.jpg",
+                #     "cctv": "6524e599e1ef005d113ab9e3"
+                # }
+
+                # send_accident_data_to_server(accident_data)
+                print(exit_loop)
+                print("Accident detected")
+                exit_loop = True
+
+                print(exit_loop)
+                break
+
+            if(exit_loop) :
+                break
         
-        
-    
+        if(exit_loop) :
+            break
+
     annotated_frame = results[0].plot()
 
     return annotated_frame

@@ -7,6 +7,7 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import dayjs from 'dayjs'
 import GoogleMapComponent from '@/app/components/GoogleMapComponent'
 import toast, { LoaderIcon } from 'react-hot-toast'
+import { AiOutlineCamera } from 'react-icons/ai'
 
 const AccidentDetailsPage = ({ params: { id } }) => {
   const router = useRouter()
@@ -126,6 +127,13 @@ const AccidentDetailsPage = ({ params: { id } }) => {
               <h1>
                 {dayjs(data?.createdAt).format('DD, MMMM YYYY, hh:mm A')}{' '}
               </h1>
+            </div>
+            <div className='bg-blue-500 text-white px-5 py-3 rounded-full tracking-wide flex items-center gap-3'>
+              <AiOutlineCamera
+                target='_blank'
+                className='inline-block h-5 w-5'
+              />
+              <a href={data?.cctv?.ipAddress}>{data?.cctv?.ipAddress}</a>
             </div>
           </div>
           {/* Map */}

@@ -25,6 +25,7 @@ export async function GET() {
 //  @access Public
 export async function POST(request) {
   try {
+    console.log("I'm here")
     await connectDB()
     const { photos, cctv } = await request.json()
 
