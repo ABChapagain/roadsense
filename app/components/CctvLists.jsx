@@ -1,20 +1,19 @@
 'use client'
+import { useRouter } from 'next/navigation'
 import React from 'react'
+import toast from 'react-hot-toast'
 import { AiOutlineDelete } from 'react-icons/ai'
 
-const handleDelete = async (id) => {
-  //   const res = await fetch(/api/cctv/${id}, {
-  //     method: 'DELETE',
-  //   })
-
-  //   if (res.status === 200) {
-  //     window.location.reload()
-  //   }
-
-  alert(`Delete ${id}`)
-}
-
 const CctvLists = ({ cctvLists }) => {
+  const router = useRouter()
+
+  const handleDelete = async (id) => {
+    await fetch(`/api/cctvs/${id}`, {
+      method: 'DELETE',
+    })
+    router.refresh()
+    toast.success('CCTV deleted successfully')
+  }
   return (
     <div>
       <h1 className='mb-3 text-2xl font-semibold'>Areas covered by CCTVs</h1>

@@ -7,6 +7,7 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import dayjs from 'dayjs'
 import GoogleMapComponent from '@/app/components/GoogleMapComponent'
 import toast, { LoaderIcon } from 'react-hot-toast'
+import { AiOutlineCamera } from 'react-icons/ai'
 
 const AccidentDetailsPage = ({ params: { id } }) => {
   const router = useRouter()
@@ -94,10 +95,10 @@ const AccidentDetailsPage = ({ params: { id } }) => {
     return (
       <div className='flex w-full h-full items-center justify-center'>
         <div
-          class='inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]'
+          className='inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]'
           role='status'
         >
-          <span class='!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]'>
+          <span className='!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]'>
             Loading...
           </span>
         </div>
@@ -126,6 +127,13 @@ const AccidentDetailsPage = ({ params: { id } }) => {
               <h1>
                 {dayjs(data?.createdAt).format('DD, MMMM YYYY, hh:mm A')}{' '}
               </h1>
+            </div>
+            <div className='bg-blue-500 text-white px-5 py-3 rounded-full tracking-wide flex items-center gap-3'>
+              <AiOutlineCamera
+                target='_blank'
+                className='inline-block h-5 w-5'
+              />
+              <a href={data?.cctv?.ipAddress}>{data?.cctv?.ipAddress}</a>
             </div>
           </div>
           {/* Map */}

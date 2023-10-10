@@ -26,9 +26,9 @@ export async function GET() {
 export async function POST(request) {
   try {
     await connectDB()
-    const { photos, cctv } = await request.json()
+    const { photos, ipAddress } = await request.json()
 
-    const ccCamera = await Cctv.findById(cctv)
+    const ccCamera = await Cctv.findOne({ ipAddress })
 
     if (!ccCamera) {
       return NextResponse.json({ error: 'CCTV not found' }, { status: 404 })

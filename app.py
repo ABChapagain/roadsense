@@ -6,7 +6,8 @@ from flask import Flask, render_template, Response
 from ultralytics import YOLO
 import os
 import time
-
+import requests
+import json
 
 app = Flask(__name__)
 
@@ -91,34 +92,34 @@ def generate_frames(video_path, custom_text):
                 for c in r.boxes.cls:
                     class_name = model.names[int(c)]
 
-                    if "moderate-accident" in class_name and not snapshot_taken:
-                        print("Moderate Accident Detected:", class_name)
-                        
+                    if ("moderate-accident" in class_name or "fatal-accident" in class_name) and not snapshot_taken:
+                        print("Accident Detected:", class_name)
+                       
                         # generating the unique id
-                        
+                       
                         current_time = datetime.now()
 
                         timestamp_with_microseconds = current_time.timestamp()
                         microseconds = int((timestamp_with_microseconds % 1) * 1e6)
 
                         unique_number = int(timestamp_with_microseconds * 1e6) + microseconds
-                        
+                       
                         #snap shot is taken here
                         snapshot_filename = os.path.join(snapshot_dir, f"snapshot_{unique_number}.jpg")
                         cv2.imwrite(snapshot_filename, frame)
                         snapshot_taken = True
-                        
-                        ipaddress=f"127.0.0.1:49/{class_name}"
-                        
+                       
+                        ipaddress=f"http://127.0.0.1:49/{custom_text}"
+                       
                         accident_data={
-                            "photos":snapshot_filename,
-                            "cctv":ipaddress
+                            "photos":f"snapshots/snapshot_{unique_number}.jpg",
+                            "ipAddress":ipaddress
                             }
-                        
+                       
                         print(accident_data)
-                        
+                       
                         #send http post request to the server
-                        # send_accident_data_to_server(accident_data)
+                        send_accident_data_to_server(accident_data)
                         break  # Exit the loop once the snapshot is taken
 
             annotated_frame = annotate_frame(frame, custom_text)
@@ -137,7 +138,7 @@ def generate_frames(video_path, custom_text):
 # def video():
 #     video_path = "test1.mp4"
 #     custom_text = "pulchowk"
-  
+ 
 #     return Response(generate_frames(video_path, custom_text), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 # while running the file go to the index.html page and render the templates
@@ -159,11 +160,11 @@ def video2():
     custom_text = "koteshore"
     return Response(generate_frames(video_path, custom_text), mimetype='multipart/x-mixed-replace; boundary=frame')
 
-# @app.route('/test3')
-# def video3():
-#     video_path = "test1.mp4"  
-#     custom_text = "Kappan"
-#     return Response(generate_frames(video_path, custom_text), mimetype='multipart/x-mixed-replace; boundary=frame')
+@app.route('/test')
+def video3():
+    video_path = "test.mp4"  
+    custom_text = "test"
+    return Response(generate_frames(video_path, custom_text), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 # hosting the entire file in the port 49
 if __name__ == '__main__':

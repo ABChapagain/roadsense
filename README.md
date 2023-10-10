@@ -34,6 +34,18 @@ RoadSense is a cutting-edge system designed to enhance highway safety by integra
 
 - **Data-Driven Safety**: Historical data analysis can lead to targeted safety improvements on highways, making them safer for all users.
 
+## Challenges We Faced While Developing the Application
+Certainly, here are the challenges faced during the development of the RoadSense system:
+
+1. **Frame Capturing and Frequent POST Requests**:
+   - Challenge: Managing the continuous capture of frames from CCTV cameras and executing POST requests for analysis in each frame presented a significant technical challenge. This process required efficient handling of a large volume of data and demanded real-time processing.
+   
+2. **Implementing Warning Audio on the Frontend**:
+   - Challenge: Integrating warning audio signals on the frontend proved to be a complex task. Playing audio in response to accident detection required careful synchronization and user-friendly controls.
+   
+3. **Real-time Data Transmission via Socket.io**:
+   - Challenge: Transmitting real-time accident data efficiently through Socket.io posed challenges, particularly when dealing with a large number of connected clients. Ensuring low latency and high reliability was crucial for instant updates.
+
 To install and configure RoadSense, follow these steps:
 
 ### Prerequisites

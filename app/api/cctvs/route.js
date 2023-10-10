@@ -19,13 +19,12 @@ export async function GET() {
 //  @desc   Create a post request on cctv
 //  @access Public
 export async function POST(request) {
-   try {
-      await connectDB();
-      const req = await request.json();
-      console.log(req);
-      const data = await Cctvs.create(req);
-      return NextResponse.json(data, { status: 201 });
-   } catch (e) {
-      console.log(e.message);
-   }
+  try {
+    await connectDB()
+    const req = await request.json()
+    const data = await Cctvs.create(req)
+    return NextResponse.json(data, { status: 201 })
+  } catch (e) {
+    console.log(e.message)
+  }
 }
