@@ -92,8 +92,8 @@ def generate_frames(video_path, custom_text):
                 for c in r.boxes.cls:
                     class_name = model.names[int(c)]
 
-                    if "moderate-accident" in class_name and not snapshot_taken:
-                        print("Moderate Accident Detected:", class_name)
+                    if ("moderate-accident" in class_name or "fatal-accident" in class_name) and not snapshot_taken:
+                        print("Accident Detected:", class_name)
                        
                         # generating the unique id
                        
@@ -160,11 +160,11 @@ def video2():
     custom_text = "koteshore"
     return Response(generate_frames(video_path, custom_text), mimetype='multipart/x-mixed-replace; boundary=frame')
 
-# @app.route('/test3')
-# def video3():
-#     video_path = "test1.mp4"  
-#     custom_text = "Kappan"
-#     return Response(generate_frames(video_path, custom_text), mimetype='multipart/x-mixed-replace; boundary=frame')
+@app.route('/test')
+def video3():
+    video_path = "test.mp4"  
+    custom_text = "test"
+    return Response(generate_frames(video_path, custom_text), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 # hosting the entire file in the port 49
 if __name__ == '__main__':
