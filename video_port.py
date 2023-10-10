@@ -7,10 +7,12 @@ from ultralytics import YOLO
 
 app = Flask(__name__)
 
-frame_skip = 1
+frame_skip = 0
+
+model = YOLO("")
 
 def annotate_frame(frame, custom_text):
-    # time and the date in the video 
+    # time and the date in the video and making the video as the frame
     now = datetime.now()
     current_time = now.strftime("%Y-%m-%d %H:%M:%S")
 
@@ -23,6 +25,7 @@ def annotate_frame(frame, custom_text):
 
   
     return frame
+
 
 def generate_frames(video_path, custom_text):
     cap = cv2.VideoCapture(video_path)
@@ -48,7 +51,7 @@ def generate_frames(video_path, custom_text):
 
 @app.route('/video')
 def video():
-    video_path = "train2.mp4"  
+    video_path = "test1.mp4"  
     custom_text = "Chabil"
     return Response(generate_frames(video_path, custom_text), mimetype='multipart/x-mixed-replace; boundary=frame')
 
@@ -59,19 +62,19 @@ def index():
 
 @app.route('/test1')
 def video1():
-    video_path = "train2.mp4"  
+    video_path = "test2.mp4"  
     custom_text = "Maitighar"
     return Response(generate_frames(video_path, custom_text), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 @app.route('/test2')
 def video2():
-    video_path = "train2.mp4"  
+    video_path = "test1.mp4"  
     custom_text = "Koteshwore"
     return Response(generate_frames(video_path, custom_text), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 @app.route('/test3')
 def video3():
-    video_path = "train2.mp4"  
+    video_path = "test2.mp4"  
     custom_text = "Kappan"
     return Response(generate_frames(video_path, custom_text), mimetype='multipart/x-mixed-replace; boundary=frame')
 
