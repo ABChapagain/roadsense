@@ -13,7 +13,7 @@ app = Flask(__name__)
 
 
 # make a folder named snapshot to save the snap while the accident is detected
-snapshot_dir = "snapshots"
+snapshot_dir = "public/snapshots"
 os.makedirs(snapshot_dir, exist_ok=True)
 
 frame_count = 0  # Initialize frame_count outside of any function
