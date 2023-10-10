@@ -15,19 +15,19 @@ export default async function Home() {
     {
       id: 1,
       name: 'Cities covered',
-      number: cctvLists?.length || 0,
+      number: '1',
       color: 'text-yellow-500',
     },
     {
       id: 3,
       name: 'Total Cctvs',
-      number: '8',
+      number: cctvLists?.length || 0,
       color: 'text-blue-500',
     },
     {
       id: 4,
       name: 'Total Accidents',
-      number: '104',
+      number: accidents?.length || 0,
       color: 'text-red-500',
     },
   ]

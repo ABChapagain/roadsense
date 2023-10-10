@@ -3,6 +3,7 @@ import Accidents from '@/models/AccidentModel'
 import '@/models/CctvModel'
 import { NextResponse } from 'next/server'
 import { io } from 'socket.io-client'
+import Cctv from '@/models/CctvModel'
 
 //  @route  GET api/accidents
 //  @desc   Get all accidents
@@ -10,7 +11,9 @@ import { io } from 'socket.io-client'
 export async function GET() {
   try {
     await connectDB()
-    const response = await Accidents.find({}).populate('cctv')
+    const response = await Accidents.find({})
+      .populate('cctv')
+      .sort({ createdAt: -1 })
     return NextResponse.json(response, { status: 200 })
   } catch (e) {
     console.log(e)
@@ -23,14 +26,27 @@ export async function GET() {
 export async function POST(request) {
   try {
     await connectDB()
-    const req = await request.json()
-    const data = await Accidents.create(req)
+    const { accidentClassification, photos, cctv } = await request.json()
+
+    const ccCamera = await Cctv.findById(cctv)
+
+    if (!ccCamera) {
+      return NextResponse.json({ error: 'CCTV not found' }, { status: 404 })
+    }
+
+    const accident = new Accidents({
+      accidentClassification,
+      photos,
+      cctv: ccCamera,
+    })
+
+    const createdAccident = await accident.save()
 
     //initializing socket.io
     const socket = io(process.env.NEXT_PUBLIC_SOCKET_URL)
-    socket.emit('send-message', data)
+    socket.emit('send-message', createdAccident)
 
-    return NextResponse.json(data, { status: 201 })
+    return NextResponse.json(createdAccident, { status: 201 })
   } catch (e) {
     console.log(e.message)
   }
