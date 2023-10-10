@@ -1,61 +1,52 @@
-import connectDB from '@/utils/connectDB'
-import Cctv from '@/models/CctvModel'
-import { NextResponse } from 'next/server'
+import connectDB from "@/utils/connectDB";
+import Cctv from "@/models/CctvModel";
+import { NextResponse } from "next/server";
 
 // @route  GET api/cctvs/:id
 // @desc   Get single  cctv by id
 // @access Public
 
 export async function GET(request, { params }) {
-  try {
-    await connectDB()
-    const { id } = params
-    const response = await Cctv.findById(id)
-    return NextResponse.json(response, { status: 200 })
-  } catch (e) {
-    console.log(e)
-  }
+   try {
+      await connectDB();
+      const { id } = params;
+      const response = await Cctv.findById(id);
+      return NextResponse.json(response, { status: 200 });
+   } catch (e) {
+      console.log(e);
+   }
 }
 
-// @route  PUT api/cctvs/:id
-// @desc   Update cctv by id
+// @route PUT api/cctvs/:id
+// @desc Update cctvs
 // @access Public
-
 export async function PUT(request, { params }) {
-  try {
-    await connectDB()
-    const { id } = params
-    const { ipAddress, location, status, city } = request.body
+   try {
+      await connectDB();
 
-    const cctv = await Cctv.findById(id)
+      const { id } = params;
+      const req = await request.json();
 
-    if (cctv) {
-      cctv.ipAddress = ipAddress || cctv.ipAddress
-      cctv.location = location || cctv.location
-      cctv.status = status || cctv.status
-      cctv.city = city || cctv.city
+      // Find the cctvs object by ID and update it
+      const updatedcctvs = await Cctv.findByIdAndUpdate(id, req, { new: true });
 
-      await cctv.save()
-      return NextResponse.json(cctv, { status: 200 })
-    } else {
-      return NextResponse.json({ message: 'Cctv not found' }, { status: 404 })
-    }
-  } catch (error) {
-    console.log(e)
-  }
+      return NextResponse.json(updatedcctvs, { status: 200 });
+   } catch (e) {
+      console.log(e);
+   }
 }
 
 // @route  DELETE api/cctvs/:id
 // @desc   Delete cctv by id
 // @access Public
 export async function DELETE(request, { params }) {
-  try {
-    await connectDB()
-    const { id } = params
-    await Cctv.findByIdAndDelete(id)
-    const response = 'Deleted successfully'
-    return NextResponse.json(response, { status: 200 })
-  } catch (e) {
-    console.log(e.message)
-  }
+   try {
+      await connectDB();
+      const { id } = params;
+      await Cctv.findByIdAndDelete(id);
+      const response = "Deleted successfully";
+      return NextResponse.json(response, { status: 200 });
+   } catch (e) {
+      console.log(e.message);
+   }
 }
