@@ -4,22 +4,18 @@ const AccidentSchema = new Schema(
   {
     accidentClassification: {
       type: String,
-      required: true,
-      enum: ['Fatal', 'Serious', 'Normal'],
+      enum: ['Fatal', 'Serious', 'Normal', ''],
       default: '',
     },
-
     photos: {
       type: String,
       required: true,
     },
-
     cctv: {
       type: Schema.Types.ObjectId,
       ref: 'cctvs',
     },
   },
-
   {
     timestamps: true,
   }

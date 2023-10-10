@@ -2,6 +2,8 @@
 import React from 'react'
 import dayjs from 'dayjs'
 import Link from 'next/link'
+import { isNull } from 'lodash'
+import Image from 'next/image'
 var relativeTime = require('dayjs/plugin/relativeTime')
 
 const AccidentList = ({ accident, index }) => {
@@ -14,7 +16,15 @@ const AccidentList = ({ accident, index }) => {
         >
           {index + 1}
         </th>
-        <td className='px-6 py-4'>{accident.photos}</td>
+        <td className='px-6 py-4'>
+          <Image
+            src={`/../${accident.photos}`}
+            alt={accident.photos}
+            width={200}
+            height={200}
+            className='w-40 h-40 object-cover'
+          />
+        </td>
 
         <td className='px-6 py-4'>
           {dayjs(accident.createdAt).format('DD, MMMM YYYY')}
@@ -25,19 +35,18 @@ const AccidentList = ({ accident, index }) => {
 
         <td className='px-6 py-4'>{accident.cctv?.city}</td>
         <td className='px-6 py-4'>
-          {' '}
           <span
             className={`${
               accident.accidentClassification === 'Fatal'
-                ? 'bg-red-500'
+                ? 'bg-red-500 text-white'
                 : accident.accidentClassification === 'Serious'
-                ? 'bg-yellow-500'
+                ? 'bg-yellow-500 text-white'
                 : accident.accidentClassification === 'Normal'
-                ? 'bg-blue-500'
+                ? 'bg-blue-500 text-white'
                 : ''
-            } text-white px-5 py-2 rounded-full`}
+            }  px-5 py-2 rounded-full`}
           >
-            {accident.accidentClassification}
+            {accident.accidentClassification || 'N/A'}
           </span>
         </td>
         <td className='px-6 py-4'>

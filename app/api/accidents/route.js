@@ -26,7 +26,7 @@ export async function GET() {
 export async function POST(request) {
   try {
     await connectDB()
-    const { accidentClassification, photos, cctv } = await request.json()
+    const { photos, cctv } = await request.json()
 
     const ccCamera = await Cctv.findById(cctv)
 
@@ -35,7 +35,6 @@ export async function POST(request) {
     }
 
     const accident = new Accidents({
-      accidentClassification,
       photos,
       cctv: ccCamera,
     })

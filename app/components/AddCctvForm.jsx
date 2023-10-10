@@ -2,6 +2,7 @@
 import { createCctv } from '@/helpers/cctvHelper'
 import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
+import toast from 'react-hot-toast'
 
 const AddCctvForm = () => {
   const router = useRouter()
@@ -36,6 +37,7 @@ const AddCctvForm = () => {
     setLoading(true)
     try {
       await createCctv(formData)
+      toast.success('Successfully added CCTV')
     } catch (error) {
       setError('Failed to add CCTV')
     }

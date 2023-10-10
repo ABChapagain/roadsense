@@ -6,6 +6,7 @@ import useSound from 'use-sound'
 import warning from '../warning.mp3'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import Image from 'next/image'
 
 function Popups() {
   const socket = io(process.env.NEXT_PUBLIC_SOCKET_URL)
@@ -61,9 +62,19 @@ function Popups() {
                 {accident?.cctv?.ipAddress}
               </a>
             </p>
-            <p className='text-sm text-gray-500 px-8'>
+            <p className='text-sm text-gray-500 px-8 mb-2'>
               Please click on view details to view the details of the accident.
             </p>
+
+            <div className='flex justify-center'>
+              <Image
+                src={`/../${accident?.photos}`}
+                alt='accident image'
+                width={300}
+                height={300}
+                className='rounded-lg '
+              />
+            </div>
           </div>
           {/*footer*/}
 
@@ -72,6 +83,7 @@ function Popups() {
               onClick={() => {
                 setShow(false)
                 stop()
+                router.refresh()
               }}
               className='mb-2 md:mb-0 bg-red-500 border border-red-500 px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-full hover:shadow-lg hover:bg-red-600'
             >
@@ -82,6 +94,7 @@ function Popups() {
                 setShow(false)
                 stop()
                 router.push(`/accidents/${accident._id}`)
+                router.refresh()
               }}
               className='mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm
               font-medium tracking-wider border text-gray-600 rounded-full
