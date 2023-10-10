@@ -5,6 +5,7 @@ from datetime import datetime
 from flask import Flask, render_template, Response
 from ultralytics import YOLO
 import os
+import time
 
 
 app = Flask(__name__)
@@ -59,6 +60,7 @@ def generate_frames(video_path, custom_text):
 
             snapshot_filename = os.path.join(snapshot_dir, f"snapshot_{frame_count}.jpg")
             cv2.imwrite(snapshot_filename, frame)
+
 
             frame_count += 1
 

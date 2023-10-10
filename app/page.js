@@ -32,7 +32,6 @@ export default async function Home() {
     },
   ]
 
-
   const markers = accidents?.map(({ city, cctv }) => ({
     city: cctv.city,
     lat: cctv.location.latitude,
@@ -42,7 +41,7 @@ export default async function Home() {
       lng: cctv.location.longitude,
     },
     ip: cctv.ipAddress,
-    type: 'cctv'
+    type: 'cctv',
   }))
 
   const center = () => {
@@ -60,9 +59,8 @@ export default async function Home() {
     return { lat, lng }
   }
 
-
   return (
-    <section className='flex'>
+    <section className='flex gap-10 flex-col 2xl:flex-row'>
       <div>
         <div className='mb-16'>
           <h1 className='mb-3 text-2xl font-semibold'>Analytics</h1>
@@ -79,28 +77,23 @@ export default async function Home() {
             ))}
           </div>
         </div>
+
         <AddCctvForm />
 
         {/* Cctv Lists */}
-        <div className='flex gap-3 sm:flex-col w-full'>
-          <CctvLists cctvLists={cctvLists} />
-
-          <Suspense fallback={<div>Loading...</div>}>
-            <GoogleMapComponent
-              markers={markers}
-              center={center()}
-              zoom={10}
-              height='400px'
-              width='100%'
-            />
-
-          </Suspense>
-
-
-
-        </div>
+        <CctvLists cctvLists={cctvLists} />
       </div>
-      <div>{/* Integrate map here */}</div>
+      <div className='2xl:h-auto h-[500px] w-full'>
+        <Suspense fallback={<div>Loading...</div>}>
+          <GoogleMapComponent
+            markers={markers}
+            center={center()}
+            zoom={10}
+            height='100%'
+            width='100%'
+          />
+        </Suspense>
+      </div>
     </section>
   )
 }
