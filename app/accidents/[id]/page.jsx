@@ -108,7 +108,7 @@ const AccidentDetailsPage = ({ params: { id } }) => {
           <div className='flex flex-row gap-5'>
             <div className='bg-red-500 text-white px-5 py-3 rounded-full tracking-wide flex items-center gap-3'>
               <FiMapPin className='inline-block w-5 h-5' />
-              <h1>{data.cctv.city}</h1>
+              <h1>{data?.cctv?.city}</h1>
             </div>
             <div className='bg-green-500 text-white px-5 py-3 rounded-full tracking-wide flex items-center gap-3'>
               <BiTime className='inline-block h-5 w-5' />

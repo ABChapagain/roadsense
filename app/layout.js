@@ -2,6 +2,7 @@ import Script from 'next/script'
 import Sidebar from './components/Sidebar'
 import './globals.css'
 import { Poppins } from 'next/font/google'
+import Popups from './components/Popups'
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -14,6 +15,7 @@ export const metadata = {
 }
 
 export default function RootLayout({ children }) {
+
   return (
     <html lang='en'>
       <Script
@@ -21,8 +23,9 @@ export default function RootLayout({ children }) {
       />{' '}
 
       <body className={`${poppins.className} flex min-h-screen`}>
+        <Popups />
         <Sidebar />
-        <main className='p-5 flex-grow'>{children}</main>
+        <main className='p-5 flex-1'>{children}</main>
       </body>
     </html>
   )

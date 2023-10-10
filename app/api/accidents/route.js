@@ -27,7 +27,7 @@ export async function POST(request) {
       const data = await Accidents.create(req);
 
       //initializing socket.io
-      const socket = io("http://localhost:4000");
+      const socket = io("process.env.SOCKET_URL");
       socket.emit("send-message", data);
 
       return NextResponse.json(data, { status: 201 });
