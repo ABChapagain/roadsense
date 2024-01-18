@@ -95,10 +95,12 @@ To install and configure RoadSense, follow these steps:
 
 5. **Configuration**: RoadSense may require configuration for your specific environment and CCTV camera setup. Refer to the project's documentation or configuration files to set up the system according to your needs.
 
-6. **Build and Start the Server**: Once you have installed the npm packages and configured the system, you can build and start the server using the following npm command:
+6. **Build and Start the Server**: Once you have installed the npm packages and configured the system, you can build and start the server using the following command and run this command in a different terminal:
 
    ```bash
-   npm run build
+   python app.py
+   npm run socket
+   npm run dev
    ```
 
    This command will build the project and start the server.
