@@ -108,7 +108,11 @@ def generate_frames(video_path, custom_text):
                         snapshot_filename = os.path.join(snapshot_dir, f"snapshot_{unique_number}.jpg")
                         cv2.imwrite(snapshot_filename, frame)
                         snapshot_taken = True
-                       
+
+                        # if port 49 is not working then the new IP address will be
+                        # ipaddress=f"HTTP://127.0.0.1:5000/{custom_text}"
+                        
+                        # and comment this line 
                         ipaddress=f"http://127.0.0.1:49/{custom_text}"
                        
                         accident_data={
@@ -162,10 +166,11 @@ def video2():
 
 @app.route('/test')
 def video3():
-    video_path = "test.mp4"  
+    video_path = "test1.mp4"  
     custom_text = "test"
     return Response(generate_frames(video_path, custom_text), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 # hosting the entire file in the port 49
+# if the port 49 is not working then remove port=49 and update the ipaddress from above
 if __name__ == '__main__':
     app.run(port=49, debug=False)
