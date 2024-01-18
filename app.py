@@ -174,3 +174,4 @@ def video3():
 # if the port 49 is not working then remove port=49 and update the ipaddress from above
 if __name__ == '__main__':
     app.run(port=49, debug=False)
+    # app.run(debug=False)
